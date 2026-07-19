@@ -7,6 +7,7 @@ spec:
   description: Enterprise Edge Gateway
   sourceRepos:
     - https://github.com/llauderesv/edge-gateway.git
+    - oci://docker.io/envoyproxy
   destinations:
     - namespace: "*"
       server: https://kubernetes.default.svc
