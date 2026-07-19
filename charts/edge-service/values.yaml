@@ -8,7 +8,7 @@ backend:
 
 gateway:
   name: eg
-  namespace: envoy-gateway-system
+  namespace: default
 
 route:
   hostnames: []
