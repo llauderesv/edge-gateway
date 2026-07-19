@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/company/edge-gateway.git
+    repoURL: https://github.com/llauderesv/edge-gateway.git
     targetRevision: main
     path: infrastructure/argocd
     helm:
