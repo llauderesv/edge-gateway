@@ -1,3 +1,3 @@
 backend:
   external:
-    host: guccidemo.ddnsking.com
+    host: host.minikube.internal
