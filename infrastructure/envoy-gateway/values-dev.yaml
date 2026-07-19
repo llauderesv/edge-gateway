@@ -1,0 +1,9 @@
+gateway-helm:
+  config:
+    envoyGateway:
+      provider:
+        type: Kubernetes
+      gateway:
+        controllerName: gateway.envoyproxy.io/gatewayclass-controller
+      extensionApis:
+        enableBackend: true

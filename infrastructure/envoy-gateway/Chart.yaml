@@ -1,0 +1,8 @@
+apiVersion: v2
+name: envoy-gateway-bootstrap
+version: 1.0.0
+
+dependencies:
+  - name: gateway-helm
+    version: 1.5.4
+    repository: oci://docker.io/envoyproxy
