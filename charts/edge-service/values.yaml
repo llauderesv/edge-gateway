@@ -8,7 +8,7 @@ backend:
 
 gateway:
   name: edge-gateway
-  namespace: edge-gateway-system
+  namespace: envoy-gateway-system
 
 route:
   hostnames: []
