@@ -23,7 +23,7 @@ spec:
           name: {{ .Values.backend.service.name }}
           port: {{ .Values.backend.service.port }}
         {{- else if eq .Values.backend.type "external" }}
-        - group: gateway.networking.k8s.io
+        - group: gateway.envoyproxy.k8s.io
           kind: Backend
           name: {{ include "edge-service.backendName" . }}
         {{- end }}
