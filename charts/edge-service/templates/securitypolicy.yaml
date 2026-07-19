@@ -1,0 +1,16 @@
+{{- if .Values.security.enabled }}
+
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: SecurityPolicy
+
+metadata:
+  name: {{ .Values.service.name }}-security
+  namespace: {{ .Values.service.namespace }}
+
+spec:
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      name: {{ include "edge-service.fullname" . }}
+
+{{- end }}

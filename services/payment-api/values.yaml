@@ -1,0 +1,9 @@
+service:
+  name: payment-api
+route:
+  path: /payments
+backend:
+  type: external
+  external:
+    host: api.partner.com
+    port: 443

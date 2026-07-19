@@ -1,0 +1,12 @@
+{{- define "edge-service.fullname" -}}
+{{- $name := required "service.name is required" .Values.service.name -}}
+{{ printf "%s-route" $name }}
+{{- end }}
+
+{{- define "edge-service.policyName" -}}
+{{ printf "%s-policy" .Values.service.name }}
+{{- end }}
+
+{{- define "edge-service.backendName" -}}
+{{ printf "%s-backend" .Values.service.name }}
+{{- end }}

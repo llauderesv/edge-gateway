@@ -1,0 +1,19 @@
+{{- if .Values.rateLimit.enabled }}
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: BackendTrafficPolicy
+metadata:
+  name: {{ include "edge-service.policyName" . }}
+  namespace: {{ .Values.service.namespace }}
+spec:
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      name: {{ include "edge-service.fullname" . }}
+  rateLimit:
+    type: Global
+    global:
+      rules:
+        - limit:
+            requests: {{ .Values.rateLimit.requests }}
+            unit: {{ .Values.rateLimit.unit }}
+{{- end }}

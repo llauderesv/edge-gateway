@@ -1,0 +1,6 @@
+rateLimit:
+  requests: 500
+timeout:
+  request: 30s
+host: host.minikube.internal
+port: 60175

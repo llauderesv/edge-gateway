@@ -1,0 +1,3 @@
+backend:
+  external:
+    host: dev.guccidemo.com

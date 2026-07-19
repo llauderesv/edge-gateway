@@ -1,0 +1,8 @@
+argo-cd:
+  server:
+    replicas: 2
+  applicationSet:
+    replicas: 2
+  configs:
+    cm:
+      timeout.reconciliation: 60s
