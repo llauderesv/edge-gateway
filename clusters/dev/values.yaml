@@ -1,5 +1,5 @@
 gateway:
-  namespace: default
+  namespace: envoy-gateway-system
   listeners:
     - name: http
       port: 80
