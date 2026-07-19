@@ -7,7 +7,7 @@ backend:
   port: 80
 
 gateway:
-  name: eg
+  name: edge-gateway
   namespace: default
 
 route:
