@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/llauderesv/edge-gateway.git
-    targetRevision: main
+    targetRevision: HEAD
     path: infrastructure/argocd
     helm:
       valueFiles:
