@@ -7,4 +7,4 @@ argo-cd:
     cm:
       timeout.reconciliation: 60s
     secret:
-      argocdServerAdminPassword: "abcde12345"
+      argocdServerAdminPassword: "$2a$10$OY3oe2Bc5knnGwoyIdCasOU9LeOSLptOIj6vmms8/D/ev/oP9dTom"
