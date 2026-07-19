@@ -4,7 +4,7 @@ metadata:
   name: external-backend
   namespace: argocd
 spec:
-  project: default
+  project: edge-gateway
   source:
     repoURL: https://github.com/llauderesv/edge-gateway.git
     targetRevision: HEAD
