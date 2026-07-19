@@ -4,6 +4,6 @@ version: 1.0.0
 
 dependencies:
   - name: gateway-helm
-    version: "1.8.3"
+    version: "v1.8.3"
     # Change from oci://docker.io/... to registry-1.docker.io
     repository: "oci://registry-1.docker.io/envoyproxy"
