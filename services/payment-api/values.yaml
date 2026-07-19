@@ -1,5 +1,6 @@
 service:
   name: payment-api
+  namespace: payment
 route:
   path: /payment-api
 backend:
