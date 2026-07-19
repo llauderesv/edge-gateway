@@ -1,8 +1,8 @@
 service:
   name: payment-api
 route:
-  path: /payments
+  path: /
 backend:
   type: external
   external:
-    port: 60175
+    port: 64772
