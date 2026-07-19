@@ -1,3 +1,7 @@
+gatewayClass:
+  name: eg
+  controllerName: gateway.envoyproxy.io/gatewayclass-controller
+
 gateway-helm:
   config:
     envoyGateway:

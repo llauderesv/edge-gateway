@@ -1,0 +1,12 @@
+gateway:
+  name: edge-gateway
+  namespace: envoy-gateway-system
+  gatewayClassName: eg
+  # Applied to every listener unless the listener overrides allowedRoutes
+  allowedRoutes:
+    namespaces:
+      from: All
+  listeners:
+    - name: http
+      port: 80
+      protocol: HTTP

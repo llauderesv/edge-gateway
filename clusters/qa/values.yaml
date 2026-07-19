@@ -1,0 +1,11 @@
+gateway:
+  listeners:
+    - name: https
+      port: 443
+      protocol: HTTPS
+      hostname: qa.api.company.com
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - kind: Secret
+            name: qa-tls-cert

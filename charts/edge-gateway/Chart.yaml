@@ -1,0 +1,6 @@
+apiVersion: v2
+name: edge-gateway
+description: Shared Edge Gateway listener shape for per-environment Gateways
+type: application
+version: 1.0.0
+appVersion: "1.0.0"

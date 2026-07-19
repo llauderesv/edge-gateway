@@ -8,7 +8,7 @@ backend:
 
 gateway:
   name: edge-gateway
-  namespace: default
+  namespace: edge-gateway-system
 
 route:
   hostnames: []

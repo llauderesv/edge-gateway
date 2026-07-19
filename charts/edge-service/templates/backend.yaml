@@ -3,6 +3,7 @@ apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: Backend
 metadata:
   name: {{ .Values.service.name }}-backend
+  namespace: {{ .Values.service.namespace }}
 spec:
   endpoints:
     - fqdn:

@@ -1,0 +1,24 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: {{ .Values.gateway.name }}
+  namespace: {{ .Values.gateway.namespace }}
+spec:
+  gatewayClassName: {{ .Values.gateway.gatewayClassName }}
+  listeners:
+    {{- range .Values.gateway.listeners }}
+    - name: {{ .name }}
+      port: {{ .port }}
+      protocol: {{ .protocol }}
+      {{- with .hostname }}
+      hostname: {{ . | quote }}
+      {{- end }}
+      {{- if .tls }}
+      tls:
+        mode: {{ .tls.mode }}
+        certificateRefs:
+          {{- toYaml .tls.certificateRefs | nindent 10 }}
+      {{- end }}
+      allowedRoutes:
+        {{- toYaml (default $.Values.gateway.allowedRoutes .allowedRoutes) | nindent 8 }}
+    {{- end }}
