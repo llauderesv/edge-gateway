@@ -7,26 +7,21 @@ backend:
   port: 80
 
 gateway:
-  name: edge
-  namespace: edge-system
+  name: eg
+  namespace: envoy-gateway-system
 
 route:
   hostnames: []
-
   path: /
-
   pathType: PathPrefix
 
 rateLimit:
   enabled: false
-
   requests: 100
-
   unit: Minute
 
 timeouts:
   enabled: false
-
   request: 15s
 
 security:
