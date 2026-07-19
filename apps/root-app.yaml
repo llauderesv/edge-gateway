@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/llauderesv/edge-gateway.git
     targetRevision: HEAD
-    path: argocd
+    path: apps
     directory:
       recurse: true
       include: '{platforms}/*.yaml'
