@@ -8,10 +8,9 @@ spec:
   source:
     repoURL: https://github.com/llauderesv/edge-gateway.git
     targetRevision: HEAD
-    path: apps
+    path: apps/platforms
     directory:
       recurse: true
-      include: '{platforms}/*.yaml'
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
