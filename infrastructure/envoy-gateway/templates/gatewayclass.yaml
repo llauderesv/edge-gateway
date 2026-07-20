@@ -10,5 +10,8 @@ spec:
   controllerName: {{ .Values.gatewayClass.controllerName }}
   {{- with .Values.gatewayClass.parametersRef }}
   parametersRef:
-    {{- toYaml . | nindent 4 }}
+    group: {{ .group }}
+    kind: {{ .kind }}
+    name: {{ .name }}
+    namespace: {{ default $.Release.Namespace .namespace }}
   {{- end }}

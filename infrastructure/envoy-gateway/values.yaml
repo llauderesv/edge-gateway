@@ -1,11 +1,16 @@
-# Parent-chart values (GatewayClass). Subchart config lives under gateway-helm.
+# Parent-chart values. Subchart config lives under gateway-helm.
 gatewayClass:
   name: eg
   controllerName: gateway.envoyproxy.io/gatewayclass-controller
-  # Optional: point at an EnvoyProxy for proxy customization
-  # parametersRef:
-  #   group: gateway.envoyproxy.io
-  #   kind: EnvoyProxy
-  #   name: eg
-  #   namespace: envoy-gateway-system
+  # Linked to EnvoyProxy below (namespace filled at render from release ns)
+  parametersRef:
+    group: gateway.envoyproxy.io
+    kind: EnvoyProxy
+    name: eg
   annotations: {}
+
+envoyProxy:
+  name: eg
+  service:
+    # Override per env (ClusterIP for local/minikube, LoadBalancer for cloud)
+    type: LoadBalancer

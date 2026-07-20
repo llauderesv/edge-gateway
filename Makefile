@@ -19,10 +19,10 @@ argocd-password:
 # Port-forward to the Envoy Gateway Proxy
 port-forward-gateway:
 	@echo "🔍 Finding proxy service for edge-gateway..."
-	@SVC_NAME=$$(kubectl get svc -n envoy-gateway-system --selector=gateway.envoyproxy.io/owning-gateway-namespace=default,gateway.envoyproxy.io/owning-gateway-name=edge-gateway -o jsonpath='{.items[0].metadata.name}' 2>/dev/null); \
+	@SVC_NAME=$$(kubectl get svc -n envoy-gateway-system --selector=gateway.envoyproxy.io/owning-gateway-namespace=envoy-gateway-system,gateway.envoyproxy.io/owning-gateway-name=edge-gateway -o jsonpath='{.items[0].metadata.name}' 2>/dev/null); \
 	if [ -z "$$SVC_NAME" ]; then \
-		echo "❌ Could not find service in envoy-gateway-system. Checking default namespace..."; \
-		SVC_NAME=$$(kubectl get svc -n default --selector=gateway.envoyproxy.io/owning-gateway-namespace=default,gateway.envoyproxy.io/owning-gateway-name=edge-gateway -o jsonpath='{.items[0].metadata.name}' 2>/dev/null); \
+		echo "❌ Could not find service in envoy-gateway-system. Checking envoy-gateway-system namespace..."; \
+		SVC_NAME=$$(kubectl get svc -n envoy-gateway-system --selector=gateway.envoyproxy.io/owning-gateway-namespace=envoy-gateway-system,gateway.envoyproxy.io/owning-gateway-name=edge-gateway -o jsonpath='{.items[0].metadata.name}' 2>/dev/null); \
 	fi; \
 	if [ -z "$$SVC_NAME" ]; then \
 		echo "❌ Error: No proxy service found for Gateway 'edge-gateway'."; \
