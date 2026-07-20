@@ -4,7 +4,7 @@ metadata:
   name: edge-gateway-root
   namespace: argocd
 spec:
-  project: default
+  project: edge-gateway
   source:
     repoURL: https://github.com/llauderesv/edge-gateway.git
     targetRevision: HEAD
