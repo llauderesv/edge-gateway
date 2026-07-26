@@ -13,9 +13,9 @@ spec:
           value:
             metadata:
               labels:
-                app.kubernetes.io/instance: envoy-gateway-addons
-              annotations:
-                argocd.argoproj.io/tracking-id: envoy-gateway-addons:apps/Deployment:envoy-gateway-system/envoy-proxy
+                app.kubernetes.io/instance: {{ .Release.Name }}
+              #annotations:
+              #  argocd.argoproj.io/tracking-id: envoy-gateway-addons:apps/Deployment:envoy-gateway-system/envoy-proxy
       envoyService:
         type: {{ .Values.envoyProxy.service.type }}
   telemetry:
