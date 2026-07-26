@@ -1,5 +1,4 @@
 gateway:
-  name: edge-gateway
   namespace: envoy-gateway-system
   gatewayClassName: eg
   # Applied to every listener unless the listener overrides allowedRoutes

@@ -1,4 +1,5 @@
 gateway:
+  name: edge-gateway-dev
   namespace: envoy-gateway-system
   listeners:
     - name: http
