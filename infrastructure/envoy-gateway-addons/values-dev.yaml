@@ -11,12 +11,12 @@ envoyProxy:
   service:
     type: ClusterIP
 
-gateway-helm:
-  config:
-    envoyGateway:
-      provider:
-        type: Kubernetes
-      gateway:
-        controllerName: gateway.envoyproxy.io/gatewayclass-controller
-      extensionApis:
-        enableBackend: true
+# gateway-helm:
+#   config:
+#     envoyGateway:
+#       provider:
+#         type: Kubernetes
+#       gateway:
+#         controllerName: gateway.envoyproxy.io/gatewayclass-controller
+#       extensionApis:
+#         enableBackend: true
