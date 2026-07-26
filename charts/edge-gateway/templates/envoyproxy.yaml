@@ -13,6 +13,7 @@ spec:
           type: StrategicMerge
           value:
             metadata:
+              namespace: {{ .Values.gateway.namespace }}
               labels:
                 argocd.argoproj.io/instance: {{ .Release.Name }}
               annotations:
