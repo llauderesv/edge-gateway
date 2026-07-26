@@ -1,3 +1,6 @@
 backend:
   external:
     host: host.minikube.internal
+
+gateway:
+  name: edge-gateway-dev
