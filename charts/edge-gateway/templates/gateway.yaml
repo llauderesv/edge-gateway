@@ -5,6 +5,11 @@ metadata:
   namespace: {{ .Values.gateway.namespace }}
 spec:
   gatewayClassName: {{ .Values.gateway.gatewayClassName }}
+  infrastructure:
+    parametersRef:
+      group: gateway.envoyproxy.io
+      kind: EnvoyProxy
+      name: eg
   listeners:
     {{- range .Values.gateway.listeners }}
     - name: {{ .name }}
