@@ -4,7 +4,7 @@ metadata:
   name: envoy-gateway-addons
   namespace: argocd
 spec:
-  project: edge-gateway
+  project: default
   source:
     repoURL: https://github.com/llauderesv/edge-gateway.git
     targetRevision: HEAD
