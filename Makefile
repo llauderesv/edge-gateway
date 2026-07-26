@@ -1,4 +1,4 @@
-.PHONY: argocd-password,port-forward-gateway,port-forward-argocd
+.PHONY: argocd-password,port-forward-gateway,port-forward-argo
 
 NAME := edge-gateway
 MINIKUBE := minikube
