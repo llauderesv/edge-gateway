@@ -8,6 +8,7 @@ spec:
     type: Kubernetes
     kubernetes:
       envoyDeployment:
+        replicas: {{ .Values.envoyProxy.replicas }}
         patch:
           type: StrategicMerge
           value:

@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: envoy-gateway-addons2
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: oci://docker.io/envoyproxy
+    chart: gateway-addons-helm
+    targetRevision: v1.8.3
+    helm:
+      values: |
+        opentelemetry-collector:
+          enabled: true
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: monitoring
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
