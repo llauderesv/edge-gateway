@@ -8,17 +8,14 @@ spec:
   source:
     repoURL: https://github.com/llauderesv/edge-gateway.git
     targetRevision: HEAD
-    path: charts/edge-gateway
-    helm:
-      valueFiles:
-        - values-dev.yaml
+    path: infrastructure/envoy-gateway-addons
   destination:
     server: https://kubernetes.default.svc
-    namespace: default
+    namespace: envoy-gateway-system
   syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+    - ServerSideApply=true
     automated:
       prune: true
       selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
-      - ServerSideApply=true
