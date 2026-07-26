@@ -16,6 +16,8 @@ spec:
               namespace: {{ .Values.gateway.namespace }}
               labels:
                 argocd.argoproj.io/instance: {{ .Release.Name }}
+                gatewa.envoyproxy.io/owning-gateway-name: {{ .Values.gateway.name }}
+                gatewa.envoyproxy.io/owning-gateway-namespace: {{ .Values.gateway.namespace }}
               annotations:
                 argocd.argoproj.io/tracking-id: "{{ .Release.Name }}:apps/Deployment:envoy-gateway-system/envoy-envoy-gateway-system-edge-gateway-dev-1872ced2"
       envoyService:
