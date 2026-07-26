@@ -15,6 +15,10 @@ spec:
             metadata:
               namespace: {{ .Values.gateway.namespace }}
               labels:
+                app.kubernetes.io/instance: {{ .Values.envoyProxy.name }}
+                app.kubernetes.io/component: proxy
+                app.kubernetes.io/managed-by: envoy-gateway-dev
+                app.kubernetes.io/name: envoy
                 argocd.argoproj.io/instance: {{ .Release.Name }}
                 gatewa.envoyproxy.io/owning-gateway-name: {{ .Values.gateway.name }}
                 gatewa.envoyproxy.io/owning-gateway-namespace: {{ .Values.gateway.namespace }}
