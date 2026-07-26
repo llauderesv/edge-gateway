@@ -20,6 +20,3 @@ spec:
       kind: "*"
   orphanedResources:
     warn: true
-    ignore:
-      - group: argoproj.io
-        kind: Application
