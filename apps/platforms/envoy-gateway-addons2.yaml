@@ -4,8 +4,7 @@ metadata:
   name: envoy-gateway-addons2
   namespace: argocd
 spec:
-  project: default
-
+  project: edge-gateway
   source:
     repoURL: oci://docker.io/envoyproxy
     chart: gateway-addons-helm
