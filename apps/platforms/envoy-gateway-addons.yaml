@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: gateway-dev
+  name: envoy-gateway-addons
   namespace: argocd
 spec:
   project: edge-gateway
