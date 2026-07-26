@@ -9,7 +9,7 @@ spec:
     repoURL: https://github.com/llauderesv/edge-gateway.git
     targetRevision: HEAD
     path: infrastructure/envoy-gateway-addons
-  destination:
+  destinations:
   - server: https://kubernetes.default.svc
     namespace: envoy-gateway-system
   - namespace: envoy-gateway-addons
