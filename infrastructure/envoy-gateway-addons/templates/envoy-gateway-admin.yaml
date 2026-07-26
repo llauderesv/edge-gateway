@@ -2,7 +2,7 @@ apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: EnvoyGateway
 metadata:
   name: envoy-gateway-dev
-  namespace: envoy-gateway-system
+  namespace: {{ .Release.Namespace }}
 spec:
   admin:
     address:
