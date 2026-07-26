@@ -1,43 +1,43 @@
-apiVersion: gateway.envoyproxy.io/v1alpha1
-kind: EnvoyProxy
-metadata:
-  name: {{ .Values.envoyProxy.name }}
-  namespace: {{ .Values.gateway.namespace }}
-  labels:
-    app.kubernetes.io/instance: {{ .Values.envoyProxy.name }}
-    app.kubernetes.io/component: proxy
-    app.kubernetes.io/managed-by: envoy-gateway-dev
-    app.kubernetes.io/name: envoy
-    argocd.argoproj.io/instance: {{ .Release.Name }}
-    gateway.envoyproxy.io/owning-gateway-name: {{ .Values.gateway.name }}
-    gateway.envoyproxy.io/owning-gateway-namespace: {{ .Values.gateway.namespace }}
-spec:
-  provider:
-    type: Kubernetes
-    kubernetes:
-      envoyDeployment:
-        replicas: {{ .Values.envoyProxy.replicas }}
-        patch:
-          type: StrategicMerge
-          value:
-            metadata:
-              namespace: {{ .Values.gateway.namespace }}
-              labels:
-                app.kubernetes.io/instance: {{ .Values.envoyProxy.name }}
-                app.kubernetes.io/component: proxy
-                app.kubernetes.io/managed-by: envoy-gateway-dev
-                app.kubernetes.io/name: envoy
-                argocd.argoproj.io/instance: {{ .Release.Name }}
-                gateway.envoyproxy.io/owning-gateway-name: {{ .Values.gateway.name }}
-                gateway.envoyproxy.io/owning-gateway-namespace: {{ .Values.gateway.namespace }}
-              annotations:
-                argocd.argoproj.io/tracking-id: "{{ .Release.Name }}:apps/Deployment:envoy-gateway-system/envoy-envoy-gateway-system-edge-gateway-dev-1872ced2"
-      envoyService:
-        type: {{ .Values.envoyProxy.service.type }}
-  telemetry:
-    accessLog:
-      settings:
-      - sinks:
-        - type: File
-          file:
-            path: /dev/stdout
+# apiVersion: gateway.envoyproxy.io/v1alpha1
+# kind: EnvoyProxy
+# metadata:
+#   name: {{ .Values.envoyProxy.name }}
+#   namespace: {{ .Values.gateway.namespace }}
+#   labels:
+#     app.kubernetes.io/instance: {{ .Values.envoyProxy.name }}
+#     app.kubernetes.io/component: proxy
+#     app.kubernetes.io/managed-by: envoy-gateway-dev
+#     app.kubernetes.io/name: envoy
+#     argocd.argoproj.io/instance: {{ .Release.Name }}
+#     gateway.envoyproxy.io/owning-gateway-name: {{ .Values.gateway.name }}
+#     gateway.envoyproxy.io/owning-gateway-namespace: {{ .Values.gateway.namespace }}
+# spec:
+#   provider:
+#     type: Kubernetes
+#     kubernetes:
+#       envoyDeployment:
+#         replicas: {{ .Values.envoyProxy.replicas }}
+#         patch:
+#           type: StrategicMerge
+#           value:
+#             metadata:
+#               namespace: {{ .Values.gateway.namespace }}
+#               labels:
+#                 app.kubernetes.io/instance: {{ .Values.envoyProxy.name }}
+#                 app.kubernetes.io/component: proxy
+#                 app.kubernetes.io/managed-by: envoy-gateway-dev
+#                 app.kubernetes.io/name: envoy
+#                 argocd.argoproj.io/instance: {{ .Release.Name }}
+#                 gateway.envoyproxy.io/owning-gateway-name: {{ .Values.gateway.name }}
+#                 gateway.envoyproxy.io/owning-gateway-namespace: {{ .Values.gateway.namespace }}
+#               annotations:
+#                 argocd.argoproj.io/tracking-id: "{{ .Release.Name }}:apps/Deployment:envoy-gateway-system/envoy-envoy-gateway-system-edge-gateway-dev-1872ced2"
+#       envoyService:
+#         type: {{ .Values.envoyProxy.service.type }}
+#   telemetry:
+#     accessLog:
+#       settings:
+#       - sinks:
+#         - type: File
+#           file:
+#             path: /dev/stdout
