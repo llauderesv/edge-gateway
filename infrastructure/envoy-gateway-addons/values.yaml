@@ -3,10 +3,10 @@ gatewayClass:
   name: eg
   controllerName: gateway.envoyproxy.io/gatewayclass-controller
   # Linked to EnvoyProxy below (namespace filled at render from release ns)
-  parametersRef:
-    group: gateway.envoyproxy.io
-    kind: EnvoyProxy
-    name: eg
+  # parametersRef:
+  #   group: gateway.envoyproxy.io
+  #   kind: EnvoyProxy
+  #   name: eg
   annotations: {}
 
 envoyProxy:
