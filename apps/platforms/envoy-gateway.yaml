@@ -15,6 +15,11 @@ spec:
           envoyGateway:
             extensionApis:
               enableBackend: true
+          provider:
+            type: Kubernetes
+            kubernetes:
+              deploy:
+                type: GatewayNamespace # 👈 This shifts data-plane ownership down to the local Gateway
   destination:
     namespace: envoy-gateway-system
     server: https://kubernetes.default.svc
