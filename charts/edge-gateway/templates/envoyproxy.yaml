@@ -2,7 +2,7 @@ apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: EnvoyProxy
 metadata:
   name: {{ .Values.envoyProxy.name }}
-  namespace: {{ .Release.Namespace }}
+  namespace: {{ .Values.gateway.namespace }}
 spec:
   provider:
     type: Kubernetes
