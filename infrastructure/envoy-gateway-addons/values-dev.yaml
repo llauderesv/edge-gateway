@@ -1,10 +1,6 @@
 gatewayClass:
   name: eg
   controllerName: gateway.envoyproxy.io/gatewayclass-controller
-  parametersRef:
-    group: gateway.envoyproxy.io
-    kind: EnvoyProxy
-    name: eg
 
 envoyProxy:
   name: eg

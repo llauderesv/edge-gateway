@@ -9,3 +9,9 @@ gateway:
     - name: http
       port: 80
       protocol: HTTP
+
+envoyProxy:
+  name: eg
+  service:
+    type: ClusterIP
+  replicas: 2
