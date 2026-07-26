@@ -8,10 +8,12 @@ spec:
     type: Kubernetes
     kubernetes:
       envoyDeployment:
-        metadata:
-          labels:
-            # Track by Argo CD Application name
-            app.kubernetes.io/instance: envoy-gateway-addons
+        patch:
+          type: StrategicMerge
+          value:
+            metadata:
+              labels:
+                app.kubernetes.io/instance: envoy-gateway-addons
       envoyService:
         type: {{ .Values.envoyProxy.service.type }}
   telemetry:
