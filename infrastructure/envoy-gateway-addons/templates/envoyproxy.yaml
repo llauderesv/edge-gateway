@@ -16,8 +16,7 @@ spec:
               labels:
                 app.kubernetes.io/instance: {{ .Release.Name }}
               annotations:
-                # argocd.argoproj.io/tracking-id: envoy-gateway:apps/Deployment:envoy-gateway-system/envoy-gateway
-                argocd.argoproj.io/tracking-id: "{{ .Release.Name }}:apps/Deployment:envoy-gateway-system/{{ .Values.envoyProxy.name }}"
+                argocd.argoproj.io/tracking-id: "{{ .Release.Name }}:apps/Deployment:envoy-gateway-system/envoy-envoy-gateway-system-edge-gateway-dev-1872ced2"
       envoyService:
         type: {{ .Values.envoyProxy.service.type }}
   telemetry:
