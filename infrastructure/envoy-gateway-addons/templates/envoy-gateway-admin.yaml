@@ -1,0 +1,14 @@
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: EnvoyGateway
+metadata:
+  name: envoy-gateway-dev
+  namespace: envoy-gateway-system
+spec:
+  admin:
+    address:
+      # Allow external access (use with caution)
+      host: "0.0.0.0"
+      port: 19000
+    
+    # Enable pprof for performance debugging
+    enablePprof: true
