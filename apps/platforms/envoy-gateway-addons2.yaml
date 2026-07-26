@@ -6,7 +6,7 @@ metadata:
 spec:
   project: edge-gateway
   source:
-    repoURL: oci://docker.io/envoyproxy
+    repoURL: docker.io/envoyproxy
     chart: gateway-addons-helm
     targetRevision: v1.8.3
     helm:
