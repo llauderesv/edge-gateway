@@ -14,3 +14,4 @@ envoyProxy:
   service:
     # Override per env (ClusterIP for local/minikube, LoadBalancer for cloud)
     type: LoadBalancer
+  replicas: 2
