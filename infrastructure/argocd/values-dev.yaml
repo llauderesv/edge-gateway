@@ -1,8 +1,13 @@
-argo-cd:
-  server:
-    replicas: 2
-  applicationSet:
-    replicas: 2
-  configs:
-    cm:
-      timeout.reconciliation: 60s
+server:
+  ingress:
+    enabled: true
+
+configs:
+  cm:
+    timeout.reconciliation: 30s
+
+controller:
+  replicas: 2
+
+repoServer:
+  replicas: 2

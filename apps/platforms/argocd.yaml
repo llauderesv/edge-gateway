@@ -6,12 +6,19 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/llauderesv/edge-gateway.git
-    targetRevision: HEAD
-    path: infrastructure/argocd
+    repoURL: https://argoproj.github.io/argo-helm
+    chart: argo-cd
+    targetRevision: 8.9.0
     helm:
       valueFiles:
-        - values-dev.yaml
+        - $values/infrastructure/argocd/values-dev.yaml
+  sources:
+    - repoURL: https://argoproj.github.io/argo-helm
+      chart: argo-cd
+      targetRevision: 8.9.0
+    - repoURL: https://github.com/llauderesv/edge-gateway.git
+      targetRevision: HEAD
+      ref: values
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
