@@ -6,16 +6,20 @@ metadata:
 spec:
   project: edge-gateway
   source:
-    repoURL: https://github.com/llauderesv/edge-gateway.git
-    targetRevision: HEAD
-    path: infrastructure/envoy-gateway-addons
+    repoURL: docker.io/envoyproxy
+    chart: gateway-addons-helm
+    targetRevision: v1.8.3
+    helm:
+      values: |
+        opentelemetry-collector:
+          enabled: false
   destination:
     server: https://kubernetes.default.svc
-    namespace: envoy-gateway-system
+    namespace: monitoring
+
   syncPolicy:
-    syncOptions:
-    - CreateNamespace=true
-    - ServerSideApply=true
     automated:
       prune: true
       selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
