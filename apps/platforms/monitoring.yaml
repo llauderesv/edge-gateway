@@ -15,6 +15,13 @@ spec:
       releaseName: monitoring
       valueFiles:
         - $values/infrastructure/monitoring/values-dev.yaml
+  sources:
+    - repoURL: https://prometheus-community.github.io/helm-charts
+      chart: kube-prometheus-stack
+      targetRevision: 89.2.3
+    - repoURL: https://github.com/llauderesv/edge-gateway.git
+      targetRevision: HEAD
+      ref: values
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
