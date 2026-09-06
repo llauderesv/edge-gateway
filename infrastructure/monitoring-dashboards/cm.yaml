@@ -1,0 +1,15 @@
+# monitoring/dashboards/envoy-gateway.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboards
+  namespace: monitoring
+data:
+  envoy-gateway.json: |
+    {
+      "title": "Envoy Gateway",
+      "uid": "envoy-gateway",
+      "schemaVersion": 39,
+      "version": 1,
+      "panels": []
+    }

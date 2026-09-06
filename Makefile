@@ -1,8 +1,10 @@
-.PHONY: argocd-password,port-forward-gateway,port-forward-argo
+.PHONY: argocd-password,port-forward-gateway,port-forward-argo,port-forward-envoy-stats
 
 NAME := edge-gateway
 MINIKUBE := minikube
 KUBECTL := kubectl
+ENVOY_NAMESPACE := envoy-gateway-system
+ENVOY_ADMIN_PORT := 19000
 
 start-cluster:
 	@echo "Starting edge-gateway local cluster..."
@@ -32,3 +34,11 @@ port-forward-gateway:
 argocd-password:
 	kubectl -n argocd get secret argocd-initial-admin-secret \
 		-o jsonpath="{.data.password}" | base64 --decode
+
+# Port-forward to the Envoy Stats
+port-forward-envoy-stats:
+	@POD=$$(kubectl get pods -n $(ENVOY_NAMESPACE) \
+		-l gateway.envoyproxy.io/owning-gateway-name=edge-gateway-dev \
+		-o jsonpath='{.items[0].metadata.name}'); \
+	echo "Envoy pod: $$POD"; \
+	kubectl port-forward -n $(ENVOY_NAMESPACE) pod/$$POD $(ENVOY_ADMIN_PORT):19000
