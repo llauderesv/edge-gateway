@@ -14,7 +14,7 @@ spec:
     helm:
       releaseName: monitoring
       valueFiles:
-        - $values/infrastructure/monitoring/values.yaml
+        - $values/infrastructure/monitoring/values-dev.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
