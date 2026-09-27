@@ -1,4 +1,4 @@
-.PHONY: argocd-password,port-forward-gateway,port-forward-argo,port-forward-envoy-stats
+.PHONY: argocd-password,port-forward-gateway,port-forward-argo,port-forward-envoy-stats,port-forward-grafana
 
 NAME := edge-gateway
 MINIKUBE := minikube
@@ -42,3 +42,7 @@ port-forward-envoy-stats:
 		-o jsonpath='{.items[0].metadata.name}'); \
 	echo "Envoy pod: $$POD"; \
 	kubectl port-forward -n $(ENVOY_NAMESPACE) pod/$$POD $(ENVOY_ADMIN_PORT):19000
+
+port-forward-grafana:
+	@echo "🚀 Grafana open at http://localhost:3000"
+	kubectl port-forward -n monitoring svc/monitoring-grafana 3000:80
