@@ -10,8 +10,6 @@ spec:
     matchLabels:
       app.kubernetes.io/name: envoy
       app.kubernetes.io/component: metrics
-      # app.kubernetes.io/managed-by: envoy-gateway
-      # gateway.envoyproxy.io/owning-gateway-name: edge-gateway-dev
   namespaceSelector:
     matchNames:
       - envoy-gateway-system

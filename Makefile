@@ -1,10 +1,12 @@
-.PHONY: argocd-password,port-forward-gateway,port-forward-argo,port-forward-envoy-stats,port-forward-grafana
+.PHONY: argocd-password,port-forward-gateway,port-forward-argo,port-forward-envoy-stats,port-forward-grafana,port-forward-prometheus
 
 NAME := edge-gateway
 MINIKUBE := minikube
 KUBECTL := kubectl
 ENVOY_NAMESPACE := envoy-gateway-system
 ENVOY_ADMIN_PORT := 19000
+PROMETHEUS_NAMESPACE := monitoring
+PROMETHEUS_SERVICE := monitoring-kube-prometheus-prometheus
 
 start-cluster:
 	@echo "Starting edge-gateway local cluster..."
@@ -46,3 +48,8 @@ port-forward-envoy-stats:
 port-forward-grafana:
 	@echo "🚀 Grafana open at http://localhost:3000"
 	kubectl port-forward -n monitoring svc/monitoring-grafana 3000:80
+
+# Port-forward to the Prometheus UI for running PromQL queries
+port-forward-prometheus:
+	@echo "🚀 Prometheus open at http://localhost:9090"
+	kubectl port-forward -n $(PROMETHEUS_NAMESPACE) svc/$(PROMETHEUS_SERVICE) 9090:9090
