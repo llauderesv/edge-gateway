@@ -14,6 +14,12 @@ route:
   hostnames: []
   path: /
   pathType: PathPrefix
+  # Optional upstream request rewrites. Omit to preserve the original host and path.
+  rewrite:
+    hostname: ""
+    path:
+      type: ""
+      replacePrefixMatch: ""
 
 rateLimit:
   enabled: false

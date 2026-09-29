@@ -16,13 +16,21 @@ spec:
         - path:
             type: {{ .Values.route.pathType }}
             value: {{ .Values.route.path }}
+      {{- if or .Values.route.rewrite.hostname .Values.route.rewrite.path.type }}
       filters:
-      - type: URLRewrite
-        urlRewrite:
-          hostname: guccidemo.ddnsking.com
-          path:
-            replacePrefixMatch: /
-            type: ReplacePrefixMatch
+        - type: URLRewrite
+          urlRewrite:
+            {{- with .Values.route.rewrite.hostname }}
+            hostname: {{ . | quote }}
+            {{- end }}
+            {{- with .Values.route.rewrite.path.type }}
+            path:
+              type: {{ . }}
+              {{- if eq . "ReplacePrefixMatch" }}
+              replacePrefixMatch: {{ $.Values.route.rewrite.path.replacePrefixMatch | quote }}
+              {{- end }}
+            {{- end }}
+      {{- end }}
       backendRefs:
         {{- if eq .Values.backend.type "kubernetes" }}
         - group: ""
