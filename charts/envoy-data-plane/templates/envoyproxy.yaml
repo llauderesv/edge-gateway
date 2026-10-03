@@ -16,6 +16,9 @@ spec:
     type: Kubernetes
     kubernetes:
       envoyDeployment:
+        {{ with .Values.envoyProxy.deployment.name }}
+        name: {{ . }}
+        {{ end }}
         replicas: {{ .Values.envoyProxy.replicas }}
         patch:
           type: StrategicMerge

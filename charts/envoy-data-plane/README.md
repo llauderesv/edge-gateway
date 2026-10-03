@@ -4,7 +4,7 @@ This chart configures an environment's Envoy Gateway data plane. The `envoy-data
 
 The ApplicationSet passes environment-specific Helm values inline. Gateway and EnvoyProxy names are derived from the environment suffix:
 
-| Environment | Gateway | EnvoyProxy | Data-plane Service | Listener |
+| Environment | Gateway | EnvoyProxy | Data-plane Deployment and Service | Listener |
 | --- | --- | --- | --- | --- |
 | `dev` | `envoy-data-plane-dev` | `eg-dev` | `data-plane-dev` | HTTP on port 80 and HTTPS on port 443 for `localhost` |
 | `qa` | `envoy-data-plane-qa` | `eg-qa` | `data-plane-qa` | HTTPS on port 443 for `localhost` |

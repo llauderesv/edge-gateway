@@ -71,6 +71,8 @@ spec:
               {{ end }}
             envoyProxy:
               name: eg-{{ .environment }}
+              deployment:
+                name: data-plane-{{ .environment }}
               service:
                 name: data-plane-{{ .environment }}
                 type: ClusterIP

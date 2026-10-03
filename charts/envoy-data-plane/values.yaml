@@ -12,6 +12,8 @@ gateway:
 
 envoyProxy:
   name: eg
+  deployment:
+    name: ""
   service:
     name: ""
     type: ClusterIP
