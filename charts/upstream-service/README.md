@@ -98,7 +98,7 @@ security:
 
 1. Create `services/<service-name>/values.yaml` with shared service, route, and backend configuration.
 2. Create environment overrides such as `services/<service-name>/values-dev.yaml`.
-3. Add a service directory under `services/`. The ApplicationSet discovers it and creates an Argo CD Application using `charts/edge-service` and the shared and environment values files.
+3. Add a service directory under `services/`. The ApplicationSet discovers it and creates an Argo CD Application using `charts/upstream-service` and the shared and environment values files.
 4. Sync the application and check that the HTTPRoute reports `Accepted` and `ResolvedRefs` conditions as `True`.
 5. Send a request through the Gateway and inspect Envoy access logs and Prometheus metrics.
 

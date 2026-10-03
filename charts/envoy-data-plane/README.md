@@ -23,7 +23,7 @@ The Envoy Gateway controller and CRDs are installed by the `envoy-gateway` Argo 
 
 ## Routing services through a Gateway
 
-Service `HTTPRoute` resources are managed separately by the `edge-service` chart. Set each service's `gateway.name` to the Gateway for its environment and `gateway.namespace` to `envoy-gateway-system`. For example, a dev route should reference:
+Service `HTTPRoute` resources are managed separately by the `upstream-service` chart. Set each service's `gateway.name` to the Gateway for its environment and `gateway.namespace` to `envoy-gateway-system`. For example, a dev route should reference:
 
 ```yaml
 gateway:

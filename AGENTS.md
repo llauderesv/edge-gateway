@@ -26,7 +26,7 @@ Edge Gateway is an enterprise-grade global API gateway platform built on Kuberne
 │   │   ├── templates
 │   │   │   └── gateway.yaml
 │   │   └── values.yaml
-│   └── edge-service # Shared Helm charts of for setting up new upstream services
+│   └── upstream-service # Shared Helm chart for setting up new upstream services
 │       ├── Chart.yaml
 │       ├── templates
 │       │   ├── _helpers.yaml

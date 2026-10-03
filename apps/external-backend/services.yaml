@@ -21,7 +21,7 @@ spec:
       source:
         repoURL: https://github.com/llauderesv/edge-gateway.git
         targetRevision: HEAD
-        path: charts/edge-service
+        path: charts/upstream-service
         helm:
           ignoreMissingValueFiles: true
           valueFiles:

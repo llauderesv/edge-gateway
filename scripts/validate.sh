@@ -5,7 +5,7 @@ set -euo pipefail
 SERVICE="${1:?service is required}"
 ENVIRONMENT="${2:?environment is required}"
 
-CHART_PATH="./charts/edge-service"
+CHART_PATH="./charts/upstream-service"
 SERVICE_PATH="./services/${SERVICE}"
 
 COMMON_VALUES="${SERVICE_PATH}/values.yaml"
