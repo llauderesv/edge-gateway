@@ -11,23 +11,29 @@ spec:
     - list:
         elements:
           - environment: dev
-            listenerName: http
-            listenerPort: "80"
-            listenerProtocol: HTTP
-            listenerHostname: ""
-            tlsSecret: ""
+            listeners:
+              - name: http
+                port: 80
+                protocol: HTTP
+              - name: https
+                port: 443
+                protocol: HTTPS
+                hostname: localhost
+                tlsSecret: dev-localhost-tls
           - environment: qa
-            listenerName: https
-            listenerPort: "443"
-            listenerProtocol: HTTPS
-            listenerHostname: qa.api.company.com
-            tlsSecret: qa-tls-cert
+            listeners:
+              - name: https
+                port: 443
+                protocol: HTTPS
+                hostname: localhost
+                tlsSecret: dev-localhost-tls
           - environment: prod
-            listenerName: https
-            listenerPort: "443"
-            listenerProtocol: HTTPS
-            listenerHostname: api.company.com
-            tlsSecret: prod-api-cert
+            listeners:
+              - name: https
+                port: 443
+                protocol: HTTPS
+                hostname: localhost
+                tlsSecret: dev-localhost-tls
   template:
     metadata:
       name: envoy-data-plane-{{ .environment }}
@@ -46,12 +52,12 @@ spec:
               allowedRoutes:
                 namespaces:
                   from: All
-              listeners:
-                - name: {{ .listenerName }}
-                  port: {{ .listenerPort }}
-                  protocol: {{ .listenerProtocol }}
-                  {{ if .listenerHostname }}
-                  hostname: {{ .listenerHostname | quote }}
+              listeners:{{ range .listeners }}
+                - name: {{ .name }}
+                  port: {{ .port }}
+                  protocol: {{ .protocol }}
+                  {{ if .hostname }}
+                  hostname: {{ .hostname | quote }}
                   {{ end }}
                   {{ if .tlsSecret }}
                   tls:
@@ -60,6 +66,7 @@ spec:
                       - kind: Secret
                         name: {{ .tlsSecret }}
                   {{ end }}
+              {{ end }}
             envoyProxy:
               name: eg-{{ .environment }}
               service:

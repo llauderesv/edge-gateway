@@ -6,11 +6,15 @@ The ApplicationSet passes environment-specific Helm values inline. Gateway and E
 
 | Environment | Gateway | EnvoyProxy | Listener |
 | --- | --- | --- | --- |
-| `dev` | `envoy-data-plane-dev` | `eg-dev` | HTTP on port 80 |
-| `qa` | `envoy-data-plane-qa` | `eg-qa` | HTTPS on port 443 for `qa.api.company.com` |
-| `prod` | `envoy-data-plane-prod` | `eg-prod` | HTTPS on port 443 for `api.company.com` |
+| `dev` | `envoy-data-plane-dev` | `eg-dev` | HTTP on port 80 and HTTPS on port 443 for `localhost` |
+| `qa` | `envoy-data-plane-qa` | `eg-qa` | HTTPS on port 443 for `localhost` |
+| `prod` | `envoy-data-plane-prod` | `eg-prod` | HTTPS on port 443 for `localhost` |
 
-QA and production require their TLS Secrets (`qa-tls-cert` and `prod-api-cert`) in the `envoy-gateway-system` namespace.
+All three environments temporarily use the `dev-localhost-tls` Secret in the `envoy-gateway-system` namespace. Create or refresh it from the repository root with `bash scripts/create-dev-tls-secret.sh`. The generated certificate is self-signed and saved at `.local/dev-localhost.crt` for local client trust; the private key is temporary and is not stored in the repository.
+
+For local HTTPS access, run the matching command: `make port-forward-gateway-https` (dev, port 8443), `make port-forward-gateway-qa-https` (QA, port 8444), or `make port-forward-gateway-prod-https` (production, port 8445). Connect to the corresponding `https://localhost:<port>` URL and trust `.local/dev-localhost.crt` in your client. The dev HTTP listener on port 80 remains available through `make port-forward-gateway`.
+
+QA and production need their own TLS Secrets in the `envoy-gateway-system` namespace before HTTPS can be enabled for their hostnames.
 
 ## Resources
 

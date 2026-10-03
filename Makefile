@@ -1,4 +1,4 @@
-.PHONY: argocd-password,port-forward-gateway,port-forward-argo,port-forward-envoy-stats,port-forward-grafana,port-forward-prometheus
+.PHONY: argocd-password port-forward-gateway port-forward-gateway-https port-forward-gateway-qa-https port-forward-gateway-prod-https port-forward-argo port-forward-envoy-stats port-forward-grafana port-forward-prometheus
 
 NAME := edge-gateway
 MINIKUBE := minikube
@@ -31,6 +31,37 @@ port-forward-gateway:
 	fi; \
 	echo "🚀 Port-forwarding to service/$$SVC_NAME on port 8888..."; \
 	kubectl port-forward -n envoy-gateway-system service/$$SVC_NAME 8080:80
+
+# Port-forward to the dev Envoy Gateway HTTPS listener
+port-forward-gateway-https:
+	@SVC_NAME=$$(kubectl get svc -n envoy-gateway-system --selector=gateway.envoyproxy.io/owning-gateway-namespace=envoy-gateway-system,gateway.envoyproxy.io/owning-gateway-name=envoy-data-plane-dev -o jsonpath='{.items[0].metadata.name}'); \
+	if [ -z "$$SVC_NAME" ]; then echo "❌ Could not find the dev Gateway proxy service."; exit 1; fi; \
+	HTTPS_PORT=$$(kubectl get svc -n envoy-gateway-system "$$SVC_NAME" -o jsonpath='{.spec.ports[?(@.port==443)].port}'); \
+	if [ -z "$$HTTPS_PORT" ]; then \
+		echo "❌ The live dev Gateway Service does not expose HTTPS port 443 yet."; \
+		echo "   Sync the ApplicationSet after the localhost HTTPS listener change is available on its tracked Git revision."; \
+		exit 1; \
+	fi; \
+	echo "🔒 Port-forwarding to service/$$SVC_NAME on https://localhost:8443..."; \
+	kubectl port-forward -n envoy-gateway-system service/$$SVC_NAME 8443:443
+
+# Port-forward to the QA Envoy Gateway HTTPS listener
+port-forward-gateway-qa-https:
+	@SVC_NAME=$$(kubectl get svc -n envoy-gateway-system --selector=gateway.envoyproxy.io/owning-gateway-namespace=envoy-gateway-system,gateway.envoyproxy.io/owning-gateway-name=envoy-data-plane-qa -o jsonpath='{.items[0].metadata.name}'); \
+	if [ -z "$$SVC_NAME" ]; then echo "❌ Could not find the QA Gateway proxy service."; exit 1; fi; \
+	HTTPS_PORT=$$(kubectl get svc -n envoy-gateway-system "$$SVC_NAME" -o jsonpath='{.spec.ports[?(@.port==443)].port}'); \
+	if [ -z "$$HTTPS_PORT" ]; then echo "❌ The live QA Gateway Service does not expose HTTPS port 443 yet. Sync its ApplicationSet from the tracked Git revision."; exit 1; fi; \
+	echo "🔒 Port-forwarding to service/$$SVC_NAME on https://localhost:8444..."; \
+	kubectl port-forward -n envoy-gateway-system service/$$SVC_NAME 8444:443
+
+# Port-forward to the production Envoy Gateway HTTPS listener
+port-forward-gateway-prod-https:
+	@SVC_NAME=$$(kubectl get svc -n envoy-gateway-system --selector=gateway.envoyproxy.io/owning-gateway-namespace=envoy-gateway-system,gateway.envoyproxy.io/owning-gateway-name=envoy-data-plane-prod -o jsonpath='{.items[0].metadata.name}'); \
+	if [ -z "$$SVC_NAME" ]; then echo "❌ Could not find the production Gateway proxy service."; exit 1; fi; \
+	HTTPS_PORT=$$(kubectl get svc -n envoy-gateway-system "$$SVC_NAME" -o jsonpath='{.spec.ports[?(@.port==443)].port}'); \
+	if [ -z "$$HTTPS_PORT" ]; then echo "❌ The live production Gateway Service does not expose HTTPS port 443 yet. Sync its ApplicationSet from the tracked Git revision."; exit 1; fi; \
+	echo "🔒 Port-forwarding to service/$$SVC_NAME on https://localhost:8445..."; \
+	kubectl port-forward -n envoy-gateway-system service/$$SVC_NAME 8445:443
 
 # Get the Argo CD password
 argocd-password:
