@@ -2,5 +2,9 @@ rateLimit:
   requests: 500
 timeout:
   request: 30s
+
+gateway:
+  name: envoy-data-plane-qa
+  namespace: envoy-gateway-system
 host: host.minikube.internal
 port: 60175

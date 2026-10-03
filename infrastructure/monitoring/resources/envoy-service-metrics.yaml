@@ -11,7 +11,7 @@ spec:
     app.kubernetes.io/component: proxy
     app.kubernetes.io/managed-by: envoy-gateway-dev
     app.kubernetes.io/name: envoy
-    gateway.envoyproxy.io/owning-gateway-name: edge-gateway-dev
+    gateway.envoyproxy.io/owning-gateway-name: envoy-data-plane-dev
     gateway.envoyproxy.io/owning-gateway-namespace: envoy-gateway-system
   ports:
     - name: metrics

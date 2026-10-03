@@ -2,7 +2,7 @@
 
 This Helm chart onboards an upstream service to the Edge Gateway. It creates the Gateway API and Envoy Gateway resources needed to expose either a Kubernetes Service or an external backend through a shared `Gateway`.
 
-Environment-specific values belong in `services/<service-name>/values-<environment>.yaml`. An Argo CD `Application` in `apps/external-backend/` installs this chart for each onboarded service.
+Environment-specific values belong in `services/<service-name>/values-<environment>.yaml`. An Argo CD `ApplicationSet` in `apps/external-backend/` discovers service directories and creates an Application for each service.
 
 ## Resources created
 
@@ -24,7 +24,7 @@ service:
   namespace: catalog
 
 gateway:
-  name: edge-gateway-dev
+  name: envoy-data-plane-dev
   namespace: envoy-gateway-system
 
 route:
@@ -98,7 +98,7 @@ security:
 
 1. Create `services/<service-name>/values.yaml` with shared service, route, and backend configuration.
 2. Create environment overrides such as `services/<service-name>/values-dev.yaml`.
-3. Add an Argo CD Application under `apps/external-backend/` that uses `charts/edge-service` and both values files.
+3. Add a service directory under `services/`. The ApplicationSet discovers it and creates an Argo CD Application using `charts/edge-service` and the shared and environment values files.
 4. Sync the application and check that the HTTPRoute reports `Accepted` and `ResolvedRefs` conditions as `True`.
 5. Send a request through the Gateway and inspect Envoy access logs and Prometheus metrics.
 

@@ -1,0 +1,77 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: envoy-data-plane
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions:
+    - missingkey=error
+  generators:
+    - list:
+        elements:
+          - environment: dev
+            listenerName: http
+            listenerPort: "80"
+            listenerProtocol: HTTP
+            listenerHostname: ""
+            tlsSecret: ""
+          - environment: qa
+            listenerName: https
+            listenerPort: "443"
+            listenerProtocol: HTTPS
+            listenerHostname: qa.api.company.com
+            tlsSecret: qa-tls-cert
+          - environment: prod
+            listenerName: https
+            listenerPort: "443"
+            listenerProtocol: HTTPS
+            listenerHostname: api.company.com
+            tlsSecret: prod-api-cert
+  template:
+    metadata:
+      name: envoy-data-plane-{{ .environment }}
+    spec:
+      project: edge-gateway
+      source:
+        repoURL: https://github.com/llauderesv/edge-gateway.git
+        targetRevision: HEAD
+        path: charts/envoy-data-plane
+        helm:
+          values: |
+            gateway:
+              name: envoy-data-plane-{{ .environment }}
+              namespace: envoy-gateway-system
+              gatewayClassName: eg
+              allowedRoutes:
+                namespaces:
+                  from: All
+              listeners:
+                - name: {{ .listenerName }}
+                  port: {{ .listenerPort }}
+                  protocol: {{ .listenerProtocol }}
+                  {{ if .listenerHostname }}
+                  hostname: {{ .listenerHostname | quote }}
+                  {{ end }}
+                  {{ if .tlsSecret }}
+                  tls:
+                    mode: Terminate
+                    certificateRefs:
+                      - kind: Secret
+                        name: {{ .tlsSecret }}
+                  {{ end }}
+            envoyProxy:
+              name: eg-{{ .environment }}
+              service:
+                type: ClusterIP
+              replicas: 2
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: envoy-gateway-system
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+          - ServerSideApply=true

@@ -1,0 +1,38 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: external-services
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions:
+    - missingkey=error
+  generators:
+    - git:
+        repoURL: https://github.com/llauderesv/edge-gateway.git
+        revision: HEAD
+        files:
+          - path: services/*/values.yaml
+  template:
+    metadata:
+      name: '{{ .service.name }}-dev'
+    spec:
+      project: edge-gateway
+      source:
+        repoURL: https://github.com/llauderesv/edge-gateway.git
+        targetRevision: HEAD
+        path: charts/edge-service
+        helm:
+          ignoreMissingValueFiles: true
+          valueFiles:
+            - ../../services/{{ .service.name }}/values.yaml
+            - ../../services/{{ .service.name }}/values-dev.yaml
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{ .service.namespace }}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true

@@ -20,13 +20,13 @@ port-forward-argo:
 # Port-forward to the Envoy Gateway Proxy
 port-forward-gateway:
 	@echo "🔍 Finding proxy service for edge-gateway..."
-	@SVC_NAME=$$(kubectl get svc -n envoy-gateway-system --selector=gateway.envoyproxy.io/owning-gateway-namespace=envoy-gateway-system,gateway.envoyproxy.io/owning-gateway-name=edge-gateway-dev -o jsonpath='{.items[0].metadata.name}' 2>/dev/null); \
+	@SVC_NAME=$$(kubectl get svc -n envoy-gateway-system --selector=gateway.envoyproxy.io/owning-gateway-namespace=envoy-gateway-system,gateway.envoyproxy.io/owning-gateway-name=envoy-data-plane-dev -o jsonpath='{.items[0].metadata.name}' 2>/dev/null); \
 	if [ -z "$$SVC_NAME" ]; then \
 		echo "❌ Could not find service in envoy-gateway-system. Checking envoy-gateway-system namespace..."; \
-		SVC_NAME=$$(kubectl get svc -n envoy-gateway-system --selector=gateway.envoyproxy.io/owning-gateway-namespace=envoy-gateway-system,gateway.envoyproxy.io/owning-gateway-name=edge-gateway-dev -o jsonpath='{.items[0].metadata.name}' 2>/dev/null); \
+		SVC_NAME=$$(kubectl get svc -n envoy-gateway-system --selector=gateway.envoyproxy.io/owning-gateway-namespace=envoy-gateway-system,gateway.envoyproxy.io/owning-gateway-name=envoy-data-plane-dev -o jsonpath='{.items[0].metadata.name}' 2>/dev/null); \
 	fi; \
 	if [ -z "$$SVC_NAME" ]; then \
-		echo "❌ Error: No proxy service found for Gateway 'edge-gateway'."; \
+		echo "❌ Error: No proxy service found for Gateway 'envoy-data-plane-dev'."; \
 		exit 1; \
 	fi; \
 	echo "🚀 Port-forwarding to service/$$SVC_NAME on port 8888..."; \
@@ -40,7 +40,7 @@ argocd-password:
 # Port-forward to the Envoy Stats
 port-forward-envoy-stats:
 	@POD=$$(kubectl get pods -n $(ENVOY_NAMESPACE) \
-		-l gateway.envoyproxy.io/owning-gateway-name=edge-gateway-dev \
+	-l gateway.envoyproxy.io/owning-gateway-name=envoy-data-plane-dev \
 		-o jsonpath='{.items[0].metadata.name}'); \
 	echo "Envoy pod: $$POD"; \
 	kubectl port-forward -n $(ENVOY_NAMESPACE) pod/$$POD $(ENVOY_ADMIN_PORT):19000

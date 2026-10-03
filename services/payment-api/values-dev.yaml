@@ -3,4 +3,5 @@ backend:
     host: host.minikube.internal
 
 gateway:
-  name: edge-gateway-dev
+  name: envoy-data-plane-dev
+  namespace: envoy-gateway-system
