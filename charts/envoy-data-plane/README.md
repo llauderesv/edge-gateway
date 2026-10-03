@@ -4,11 +4,11 @@ This chart configures an environment's Envoy Gateway data plane. The `envoy-data
 
 The ApplicationSet passes environment-specific Helm values inline. Gateway and EnvoyProxy names are derived from the environment suffix:
 
-| Environment | Gateway | EnvoyProxy | Listener |
-| --- | --- | --- | --- |
-| `dev` | `envoy-data-plane-dev` | `eg-dev` | HTTP on port 80 and HTTPS on port 443 for `localhost` |
-| `qa` | `envoy-data-plane-qa` | `eg-qa` | HTTPS on port 443 for `localhost` |
-| `prod` | `envoy-data-plane-prod` | `eg-prod` | HTTPS on port 443 for `localhost` |
+| Environment | Gateway | EnvoyProxy | Data-plane Service | Listener |
+| --- | --- | --- | --- | --- |
+| `dev` | `envoy-data-plane-dev` | `eg-dev` | `data-plane-dev` | HTTP on port 80 and HTTPS on port 443 for `localhost` |
+| `qa` | `envoy-data-plane-qa` | `eg-qa` | `data-plane-qa` | HTTPS on port 443 for `localhost` |
+| `prod` | `envoy-data-plane-prod` | `eg-prod` | `data-plane-prod` | HTTPS on port 443 for `localhost` |
 
 All three environments temporarily use the `dev-localhost-tls` Secret in the `envoy-gateway-system` namespace. Create or refresh it from the repository root with `bash scripts/create-dev-tls-secret.sh`. The generated certificate is self-signed and saved at `.local/dev-localhost.crt` for local client trust; the private key is temporary and is not stored in the repository.
 

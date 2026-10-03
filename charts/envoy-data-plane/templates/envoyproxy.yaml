@@ -32,6 +32,9 @@ spec:
                 gateway.envoyproxy.io/owning-gateway-namespace: {{ .Values.gateway.namespace }}
       envoyService:
         type: {{ .Values.envoyProxy.service.type }}
+        {{ with .Values.envoyProxy.service.name }}
+        name: {{ . }}
+        {{ end }}
   telemetry:
     accessLog:
       settings:

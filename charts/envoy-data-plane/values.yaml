@@ -13,5 +13,6 @@ gateway:
 envoyProxy:
   name: eg
   service:
+    name: ""
     type: ClusterIP
   replicas: 2

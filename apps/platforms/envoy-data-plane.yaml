@@ -70,6 +70,7 @@ spec:
             envoyProxy:
               name: eg-{{ .environment }}
               service:
+                name: data-plane-{{ .environment }}
                 type: ClusterIP
               replicas: 2
       destination:
