@@ -1,6 +1,6 @@
 backend:
   external:
-    host: guccidemo.ddnsking.com
+    host: homelab.local
 
 gateway:
   name: envoy-data-plane-dev
