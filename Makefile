@@ -64,9 +64,15 @@ port-forward-gateway-prod-https:
 	kubectl port-forward -n envoy-gateway-system service/$$SVC_NAME 8445:443
 
 # Get the Argo CD password
-argocd-password:
+get-argocd-password:
 	kubectl -n argocd get secret argocd-initial-admin-secret \
 		-o jsonpath="{.data.password}" | base64 --decode
+# Get Grafana Dashboard password
+
+get-grafana-password:
+	kubectl get secret monitoring-grafana \
+  	-n monitoring \
+  	-o jsonpath="{.data.admin-password}" | base64 --decode
 
 # Port-forward to the Envoy Stats
 port-forward-envoy-stats:
@@ -84,3 +90,7 @@ port-forward-grafana:
 port-forward-prometheus:
 	@echo "🚀 Prometheus open at http://localhost:9090"
 	kubectl port-forward -n $(PROMETHEUS_NAMESPACE) svc/$(PROMETHEUS_SERVICE) 9090:9090
+
+set-context:
+	@echo "Set Context"
+	kubectl config use-context $(NAME)
