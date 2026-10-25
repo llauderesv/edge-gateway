@@ -1,0 +1,85 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-envoy-upstream
+  namespace: monitoring
+  labels:
+    grafana_dashboard: "1"
+data:
+  envoy-upstream-requests.json: |
+    {
+      "uid": "envoy-upstream-requests",
+      "title": "Envoy Upstream Requests",
+      "tags": ["envoy", "gateway"],
+      "timezone": "browser",
+      "schemaVersion": 39,
+      "version": 1,
+      "refresh": "15s",
+      "time": { "from": "now-24h", "to": "now" },
+      "panels": [
+        {
+          "id": 1,
+          "title": "Busiest upstream by total requests",
+          "description": "Upstream cluster with the most requests over the selected dashboard time range.",
+          "type": "stat",
+          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "gridPos": { "h": 8, "w": 12, "x": 0, "y": 0 },
+          "fieldConfig": {
+            "defaults": {
+              "color": { "mode": "thresholds" },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  { "color": "green", "value": null },
+                  { "color": "red", "value": 10000 }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "options": {
+            "colorMode": "value",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false },
+            "textMode": "value_and_name",
+            "wideLayout": true
+          },
+          "targets": [
+            {
+              "editorMode": "code",
+              "expr": "topk(1, sum by (envoy_cluster_name) (increase(envoy_cluster_upstream_rq_total[$__range])))",
+              "legendFormat": "{{envoy_cluster_name}}",
+              "range": false,
+              "refId": "A"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "title": "Total upstream requests by cluster",
+          "description": "Request totals per upstream cluster over the selected dashboard time range.",
+          "type": "table",
+          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "gridPos": { "h": 10, "w": 24, "x": 0, "y": 8 },
+          "fieldConfig": {
+            "defaults": { "custom": { "align": "auto", "cellOptions": { "type": "auto" }, "inspect": false } },
+            "overrides": []
+          },
+          "options": { "cellHeight": "sm", "showHeader": true, "sortBy": [{ "desc": true, "displayName": "Value" }] },
+          "targets": [
+            {
+              "editorMode": "code",
+              "expr": "sum by (envoy_cluster_name) (increase(envoy_cluster_upstream_rq_total[$__range]))",
+              "format": "table",
+              "instant": true,
+              "legendFormat": "{{envoy_cluster_name}}",
+              "range": false,
+              "refId": "A"
+            }
+          ]
+        }
+      ]
+    }
