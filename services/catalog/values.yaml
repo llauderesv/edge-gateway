@@ -1,0 +1,10 @@
+service:
+  name: catalog
+  namespace: catalog
+
+route:
+  path: /catalog
+backend:
+  type: external
+  external:
+    port: 8080

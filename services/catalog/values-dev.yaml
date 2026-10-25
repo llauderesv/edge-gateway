@@ -1,0 +1,7 @@
+backend:
+  external:
+    host: host.minikube.internal
+
+gateway:
+  name: envoy-data-plane-dev
+  namespace: envoy-gateway-system
