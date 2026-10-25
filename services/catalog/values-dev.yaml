@@ -1,6 +1,6 @@
 backend:
   external:
-    host: homelab.local
+    host: host.minikube.internal
 
 gateway:
   name: envoy-data-plane-dev
