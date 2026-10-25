@@ -1,6 +1,6 @@
 backend:
   external:
-    host: host.minikube.internal
+    host: guccidemo.ddnsking.com
 
 gateway:
   name: envoy-data-plane-dev
