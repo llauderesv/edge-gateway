@@ -1,0 +1,11 @@
+{{- if and (eq .Values.route.rewrite.hostnameType "Backend") (not .Values.route.rewrite.hostname) (not .Values.route.rewrite.path.type) }}
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: HTTPRouteFilter
+metadata:
+  name: {{ .Values.service.name }}-backend-host-rewrite
+  namespace: {{ .Values.service.namespace }}
+spec:
+  urlRewrite:
+    hostname:
+      type: Backend
+{{- end }}

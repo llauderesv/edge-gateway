@@ -4,10 +4,10 @@ backend:
     # The host port-forward exposes the other cluster's Istio ingress here.
     host: host.minikube.internal
 
-route:
-  # Istio selects the catalog virtual host using this Host header.
-  rewrite:
-    hostname: homelab.local
+# route:
+#   # Istio selects the catalog virtual host using this Host header.
+#   rewrite:
+#     hostname: homelab.local
 
 gateway:
   name: envoy-data-plane-dev

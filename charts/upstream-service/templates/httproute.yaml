@@ -16,8 +16,9 @@ spec:
         - path:
             type: {{ .Values.route.pathType }}
             value: {{ .Values.route.path }}
-      {{- if or .Values.route.rewrite.hostname .Values.route.rewrite.path.type }}
+      {{- if or .Values.route.rewrite.hostname .Values.route.rewrite.path.type .Values.route.rewrite.hostnameType }}
       filters:
+        {{- if or .Values.route.rewrite.hostname .Values.route.rewrite.path.type }}
         - type: URLRewrite
           urlRewrite:
             {{- with .Values.route.rewrite.hostname }}
@@ -30,6 +31,13 @@ spec:
               replacePrefixMatch: {{ $.Values.route.rewrite.path.replacePrefixMatch | quote }}
               {{- end }}
             {{- end }}
+        {{- else if eq .Values.route.rewrite.hostnameType "Backend" }}
+        - type: ExtensionRef
+          extensionRef:
+            group: gateway.envoyproxy.io
+            kind: HTTPRouteFilter
+            name: {{ .Values.service.name }}-backend-host-rewrite
+        {{- end }}
       {{- end }}
       backendRefs:
         {{- if eq .Values.backend.type "kubernetes" }}

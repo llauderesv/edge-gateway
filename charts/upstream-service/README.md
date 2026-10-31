@@ -9,6 +9,7 @@ Environment-specific values belong in `services/<service-name>/values-<environme
 | Template | Resource | Created when | Purpose |
 | --- | --- | --- | --- |
 | `httproute.yaml` | `HTTPRoute` | Always | Matches incoming requests and sends them to the upstream backend. |
+| `httproutefilter.yaml` | `HTTPRouteFilter` | Default, unless a hostname or path rewrite is explicitly configured | Rewrites the upstream Host header to the selected backend hostname using Envoy Gateway's extension API. |
 | `backend.yaml` | `Backend` | `backend.type: external` | Represents an external DNS backend. |
 | `backendtrafficpolicy.yaml` | `BackendTrafficPolicy` | `rateLimit.enabled: true` | Applies global request rate limiting to the route. |
 | `timeoutpolicy.yaml` | `BackendTrafficPolicy` | `timeouts.enabled: true` | Sets the upstream request timeout. |
@@ -34,7 +35,9 @@ route:
   pathType: PathPrefix
 ```
 
-By default, the route forwards the request with its original host and path. Add a rewrite only when the upstream requires one. For example, this strips `/catalog` from `/catalog/items` and sends the request upstream as `/items`:
+By default, the chart uses Envoy Gateway's `HTTPRouteFilter` extension to rewrite the upstream Host header to the selected backend hostname; the request path is preserved. Set `route.rewrite.hostname` to provide a literal hostname instead. If a path rewrite is configured, the chart uses the standard `URLRewrite` filter and does not also add the default backend-host rewrite.
+
+For example, this strips `/catalog` from `/catalog/items` and sends the request upstream as `/items`:
 
 ```yaml
 route:

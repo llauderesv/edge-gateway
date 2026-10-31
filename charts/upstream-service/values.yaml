@@ -14,9 +14,10 @@ route:
   hostnames: []
   path: /
   pathType: PathPrefix
-  # Optional upstream request rewrites. Omit to preserve the original host and path.
+  # Envoy Gateway rewrites the upstream Host to the selected backend by default.
   rewrite:
     hostname: ""
+    hostnameType: Backend
     path:
       type: ""
       replacePrefixMatch: ""
