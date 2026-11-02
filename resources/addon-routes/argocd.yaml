@@ -9,7 +9,7 @@ spec:
       namespace: envoy-gateway-system
       sectionName: https
   hostnames:
-    - localhost
+    - argocd.dev.internal.com
   rules:
     - backendRefs:
         - name: argocd-server
