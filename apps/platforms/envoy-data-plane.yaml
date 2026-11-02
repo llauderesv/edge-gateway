@@ -20,21 +20,21 @@ spec:
               - name: https
                 port: 443
                 protocol: HTTPS
-                hostname: localhost
+                hostname: dev.gateway.internal.com
                 tlsSecret: dev-localhost-tls
           - environment: qa
             listeners:
               - name: https
                 port: 443
                 protocol: HTTPS
-                hostname: localhost
+                hostname: qa.gateway.internal.com
                 tlsSecret: dev-localhost-tls
           - environment: prod
             listeners:
               - name: https
                 port: 443
                 protocol: HTTPS
-                hostname: localhost
+                hostname: gateway.internal.com
                 tlsSecret: dev-localhost-tls
   template:
     metadata:

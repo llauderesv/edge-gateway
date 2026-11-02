@@ -1,0 +1,51 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocd-gateway
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  project: edge-gateway
+  source:
+    repoURL: https://github.com/llauderesv/edge-gateway.git
+    targetRevision: HEAD
+    path: charts/envoy-data-plane
+    helm:
+      releaseName: argocd-gateway-dev
+      values: |
+        gateway:
+          name: argocd-gateway-dev
+          namespace: envoy-gateway-system
+          gatewayClassName: eg
+          allowedRoutes:
+            namespaces:
+              from: All
+          listeners:
+            - name: https
+              port: 443
+              protocol: HTTPS
+              hostname: argocd.dev.internal.com
+              tls:
+                mode: Terminate
+                certificateRefs:
+                  - kind: Secret
+                    name: dev-localhost-tls
+        envoyProxy:
+          name: argocd-gateway-dev
+          deployment:
+            name: argocd-data-plane-dev
+          service:
+            name: argocd-data-plane-dev
+            type: ClusterIP
+          replicas: 1
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: envoy-gateway-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true

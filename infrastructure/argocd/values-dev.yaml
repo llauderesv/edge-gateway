@@ -1,6 +1,8 @@
 server:
+  # Envoy Gateway terminates external TLS and forwards HTTP to argocd-server.
+  insecure: true
   ingress:
-    enabled: true
+    enabled: false
 
 configs:
   cm:

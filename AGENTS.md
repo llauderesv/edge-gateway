@@ -1,6 +1,6 @@
-Edge Gateway
+# Edge Gateway
 
-# Overview
+## Overview
 
 Edge Gateway is an enterprise-grade global API gateway platform built on Kubernetes Gateway API and GitOps principles. It provides centralized traffic management, routing, security, and policy enforcement across multi-region environments. Powered by ArgoCD, Helm, and Gateway API resources, Edge Gateway enables teams to manage APIs consistently at scale with support for rate limiting, authentication, observability, and progressive delivery.
 
@@ -10,6 +10,8 @@ Edge Gateway is an enterprise-grade global API gateway platform built on Kuberne
 ├── AGENTS.md
 ├── Makefile
 ├── README.md
+├── terraform
+│   └── gke # Terraform root for the shared Google Kubernetes Engine cluster
 ├── apps
 │   ├── external-backend # Contains all the services who upstreamed by the Edge Gateway
 │   │   └── payment-api.yaml
@@ -36,7 +38,7 @@ Edge Gateway is an enterprise-grade global API gateway platform built on Kuberne
 │       │   ├── securitypolicy.yaml
 │       │   └── timeoutpolicy.yaml
 │       └── values.yaml
-├── infrastructure # Localize Helm Charts of all the Infrastructure Cluster components in the Edge Gateway
+├── infrastructure # Helm charts and values for in-cluster platform components
 │   ├── README.md
 │   ├── argocd
 │   │   ├── Chart.lock

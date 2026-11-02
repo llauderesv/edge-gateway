@@ -1,4 +1,4 @@
-.PHONY: argocd-password port-forward-gateway port-forward-gateway-https port-forward-gateway-qa-https port-forward-gateway-prod-https port-forward-argo port-forward-envoy-stats port-forward-grafana port-forward-prometheus
+.PHONY: argocd-password port-forward-gateway port-forward-gateway-https port-forward-gateway-qa-https port-forward-gateway-prod-https port-forward-argo port-forward-argocd-gateway port-forward-envoy-stats port-forward-grafana port-forward-prometheus
 
 NAME := edge-gateway
 MINIKUBE := minikube
@@ -16,6 +16,11 @@ start-cluster:
 port-forward-argo:
 	@echo "🚀 Argo CD UI open at https://localhost:9443"
 	@kubectl port-forward -n argocd svc/argocd-server 9443:443
+
+# Port-forward to Argo CD's dedicated Envoy Gateway
+port-forward-argocd-gateway:
+	@echo "🔒 Argo CD via its Gateway open at https://localhost:9443"
+	@kubectl port-forward -n $(ENVOY_NAMESPACE) svc/argocd-data-plane-dev 9443:443
 		
 # Port-forward to the Envoy Gateway Proxy
 port-forward-gateway:
